@@ -1,0 +1,37 @@
+# Runtime files
+/runtime/
+!/runtime/.gitkeep
+
+# Vendor
+/vendor/
+
+# IDE
+/.idea/
+/.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Cache
+.phpunit.cache/
+.php-cs-fixer.cache
+
+# Composer
+composer.lock
+
+# Docker
+.docker/
+
+# Test coverage
+/coverage/
+/build/

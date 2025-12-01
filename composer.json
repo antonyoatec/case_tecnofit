@@ -1,0 +1,79 @@
+{
+    "name": "pix-withdrawal/microservice",
+    "type": "project",
+    "keywords": [
+        "php",
+        "hyperf",
+        "pix",
+        "withdrawal",
+        "microservice"
+    ],
+    "description": "PIX Withdrawal Microservice built with Hyperf 3.x",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.2",
+        "hyperf/cache": "~3.1.0",
+        "hyperf/command": "~3.1.0",
+        "hyperf/config": "~3.1.0",
+        "hyperf/crontab": "~3.1.0",
+        "hyperf/database": "~3.1.0",
+        "hyperf/db-connection": "~3.1.0",
+        "hyperf/framework": "~3.1.0",
+        "hyperf/guzzle": "~3.1.0",
+        "hyperf/http-server": "~3.1.0",
+        "hyperf/logger": "~3.1.0",
+        "hyperf/memory": "~3.1.0",
+        "hyperf/process": "~3.1.0",
+        "hyperf/redis": "~3.1.0",
+        "hyperf/event": "~3.1.0",
+        "hyperf/validation": "~3.1.0",
+        "hyperf/model-cache": "~3.1.0",
+        "ramsey/uuid": "^4.7"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "hyperf/devtool": "~3.1.0",
+        "hyperf/testing": "~3.1.0",
+        "mockery/mockery": "^1.0",
+        "phpstan/phpstan": "^1.0",
+        "phpunit/phpunit": "^10.0",
+        "swoole/ide-helper": "^5.0"
+    },
+    "suggest": {
+        "ext-openssl": "*",
+        "ext-json": "*",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "ext-redis": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "config/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "HyperfTest\\": "./test/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-autoload-dump": [
+            "rm -rf runtime/container"
+        ],
+        "test": "phpunit -c phpunit.xml --colors=always",
+        "analyse": "phpstan analyse --memory-limit 1024M -l 0 -c phpstan.neon ./app",
+        "cs-fix": "php-cs-fixer fix $1"
+    }
+}

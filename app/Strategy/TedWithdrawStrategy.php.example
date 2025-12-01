@@ -1,0 +1,64 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Strategy;
+
+use App\Dto\WithdrawRequestDto;
+use App\Dto\ValidationResultDto;
+use App\Dto\ProcessResultDto;
+use App\Model\Account;
+use App\Model\AccountWithdraw;
+
+/**
+ * TED Withdrawal Strategy - FUTURE IMPLEMENTATION EXAMPLE
+ * This file shows how easy it is to add new withdrawal methods
+ * 
+ * To activate:
+ * 1. Rename this file to TedWithdrawStrategy.php
+ * 2. Add #[Component] annotation
+ * 3. Register in WithdrawStrategyFactory
+ * 4. Create account_withdraw_ted table
+ * 5. No changes needed in core WithdrawService!
+ */
+class TedWithdrawStrategy implements WithdrawMethodInterface
+{
+    public function supports(string $method): bool
+    {
+        return strtolower($method) === 'ted';
+    }
+
+    public function validate(WithdrawRequestDto $request): ValidationResultDto
+    {
+        // TED-specific validation logic
+        if ($request->amount <= 0) {
+            return ValidationResultDto::invalid([
+                ['field' => 'amount', 'message' => 'Amount must be greater than zero', 'code' => 'INVALID_AMOUNT']
+            ]);
+        }
+
+        // Validate bank account format, etc.
+        return ValidationResultDto::valid();
+    }
+
+    public function process(Account $account, AccountWithdraw $withdraw): ProcessResultDto
+    {
+        // TED-specific processing logic
+        // Create account_withdraw_ted record
+        // Call TED API
+        // Handle TED-specific responses
+        
+        return ProcessResultDto::success(['method' => 'ted']);
+    }
+
+    public function getRequiredFields(): array
+    {
+        return [
+            'method',
+            'amount',
+            'bank_code',
+            'agency',
+            'account_number'
+        ];
+    }
+}
