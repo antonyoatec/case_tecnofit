@@ -113,9 +113,10 @@ Controller (HTTP) → Service (Business Logic) → Repository (Data Access) → 
 ### Decisões Arquiteturais Principais
 
 #### 1. **Strategy Pattern para Extensibilidade**
-**Decisão**: Implementar interface `WithdrawMethodInterface` com `PixWithdrawStrategy`
+**Decisão**: Implementar interface `WithdrawMethodInterface` com `PixWithdrawStrategy` e factory
 **Razão**: Facilita adição de TED, Boleto sem alterar código existente
-**Alternativa Considerada**: Switch/case simples (rejeitada por não ser extensível)
+**Alternativas Consideradas**: Switch/case simples (rejeitada por não ser extensível)
+                               Não usar factory e criar fluxos especificos para cada tipo de saque (Mais robusto e escalavel, porem mais moroso em questao de tempo de desenvolvimento, aplicavel em uma implementação para finz de produção)
 
 #### 2. **Pessimistic Locking para Concorrência**
 **Decisão**: `SELECT ... FOR UPDATE` em todas as operações de saque
